@@ -14,7 +14,7 @@ class Expenses
         $stmt->bind_param('iisssd',$id,$user_id,$description,$type,$date,$amount);
 
         if($stmt->execute()){
-            echo "Költség hozzáadva sikeresen hozzáadva";
+            echo "Költség sikeresen hozzáadva";
         }
         else{
             echo "Hiba történt: " . $stmt->error;
@@ -25,7 +25,7 @@ class Expenses
     {
         global $con;
 
-        $total_expenses_query = 'SELECT id,description, type, date, amount FROM expenses';
+        $total_expenses_query = "SELECT id,description, type, date, amount FROM expenses WHERE user_id = '" .$_POST['user_id'] . "'";
         $result = $con->query($total_expenses_query);
 
         if ($result->num_rows > 0) {

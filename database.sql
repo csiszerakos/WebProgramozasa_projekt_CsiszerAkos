@@ -20,3 +20,11 @@ CREATE TABLE IF NOT EXISTS expenses (
     date DATE NOT NULL,
     amount DECIMAL(10, 2) NOT NULL
     );
+
+CREATE TABLE IF NOT EXISTS targets (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT,
+    FOREIGN KEY (user_id) REFERENCES users(id),
+    type VARCHAR(32) NOT NULL,
+    amount DECIMAL(10, 2) NOT NULL
+    );
