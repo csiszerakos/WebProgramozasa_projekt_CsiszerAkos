@@ -1,6 +1,8 @@
 <?php
 namespace savemoneyapp;
 
+use function PHPUnit\Framework\isEmpty;
+
 include 'connection.class.php';
 include 'user.class.php';
 include 'expenses.class.php';
@@ -30,7 +32,7 @@ $user->logout();
 </head>
 <body>
 <div id="menu">
-        <p>Hello, <?php echo $username_session ?>! </p>
+        <p>Üdvözöllek, <?php echo $username_session ?>! </p>
     <h1>Dashboard</h1>
     <form action="dashboard.php" method="post">
         <button type="submit" name="logout">Kilépés</button>
@@ -51,7 +53,7 @@ $user->logout();
                 <input type="text" name="description" id="description"><br>
 
                 <label for="type">Típus: </label>
-                <select id="type" name="type" required>
+                <select id="type" name="type" >
                     <option value="" disabled selected>-----</option>
                     <option value="Tankolás">Tankolás</option>
                     <option value="Ruhavásárlás">Ruhavásárlás</option>
@@ -90,9 +92,10 @@ $user->logout();
         <div id="box">
             <form id="reports_form" action="dashboard.php" method="post">
                 <input type="hidden" name="user_id" id="user_id" value="<?php echo $id_session ?>"><br>
+
                 <label for="type">Típus: </label>
                 <select id="type" name="type">
-                    <option value=" " disabled selected>-----</option>
+                    <option value="" disabled selected>-----</option>
                     <option value="Tankolás">Tankolás</option>
                     <option value="Ruhavásárlas">Ruhavásárlás</option>
                     <option value="Élelmiszer vásárlás">Élelmiszervásárlás</option>
@@ -128,8 +131,8 @@ $user->logout();
                 <input type="number" name="id" id="id"><br>
 
                 <label for="type">Típus: </label>
-                <select id="type" name="type">
-                    <option value=" " disabled selected>-----</option>
+                <select id="type" name="type" required>
+                    <option value="" disabled selected>-----</option>
                     <option value="Tankolás">Tankolás</option>
                     <option value="Ruhavásárlas">Ruhavásárlás</option>
                     <option value="Élelmiszer vásárlás">Élelmiszervásárlás</option>
@@ -138,7 +141,7 @@ $user->logout();
                 </select><br>
 
                 <label for="amount">Összeg: </label>
-                <input type="number" id="amount" name="amount" step="0.01" inputmode="decimal"><br>
+                <input type="number" id="amount" name="amount" step="0.01" inputmode="decimal" required><br>
 
                 <input type="submit" name="add_target" value="Hozzáadás">
                 <input type="submit" name="update_target" value="Cél modósítás" >
@@ -159,7 +162,11 @@ $user->logout();
                 $amount_target = $_POST['amount'];
 
                 $target = new Target();
-                $target->updateTarget($id_target,$type_target,$amount_target);
+                if(!empty($_POST['id'])) {
+                    $target->updateTarget($id_target, $type_target, $amount_target);
+                }else{
+                    echo "Adjon meg egy id-t!";
+                }
             }
             ?>
         </div>

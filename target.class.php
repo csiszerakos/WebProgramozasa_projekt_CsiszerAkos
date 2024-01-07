@@ -1,6 +1,7 @@
 <?php
 
 namespace savemoneyapp;
+require_once "user.class.php";
 
 class Target
 {
@@ -39,8 +40,10 @@ class Target
     function listTargets()
         {
             global $con;
+            global $id_session;
 
-            $total_target = "SELECT id, type, amount FROM targets WHERE user_id = '" .$_POST['user_id'] . "'";
+
+            $total_target = "SELECT id, type, amount FROM targets WHERE user_id = '" .$id_session . "'";
             $result = $con->query($total_target);
 
             if ($result->num_rows > 0) {

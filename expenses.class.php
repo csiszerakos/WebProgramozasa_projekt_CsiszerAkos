@@ -33,7 +33,7 @@ class Expenses
                 echo "ID: " . $row["id"] . " - Megnevezés: " . $row["description"]. " - Típus: " . $row["type"]. " - Dátum: " . $row["date"]. " - Összeg: " . $row["amount"]. "<br>";
             }
         } else {
-            echo "Nincsen lekérdezés.";
+            echo "Nincsen költségek.";
         }
     }
 
